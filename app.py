@@ -1,4 +1,69 @@
 from datetime import datetime
+
+#mostpopular item in each month
+def mostpopularitem(monthsdata):
+    #add items from monthsdata data to dictionary
+    qty_dict = {}
+    for itemlist in monthsdata:
+        #if key is same add it to the same key
+        if itemlist[1] in qty_dict:
+            qty_dict[itemlist[1]]+= int(itemlist[3])
+        else:
+            #add it as new key
+            qty_dict[itemlist[1]] = int(itemlist[3])
+    #the most popular item in every month
+    maxqtysold = max(qty_dict, key=qty_dict.get) 
+    return maxqtysold
+
+#items generating most revenue
+def mostrevenuegenerated(monthsdata):
+    #Item generating most revenue in each month.
+     revenue_dict = {}
+     for itemlist in monthsdata:
+         keys = ''.join(itemlist[1])
+         key =  keys.strip('"')
+         #if key is same add it to the same key
+         if key in revenue_dict:
+             revenue_dict[key]+= int(itemlist[4])
+         else:
+             #add it as new key
+             revenue_dict[itemlist[1]] = int(itemlist[4])
+             #most  revenu generated in each month
+     maxrevenuesold = max(revenue_dict, key=revenue_dict.get) 
+     return maxrevenuesold
+
+#get minimum, maximum , average quantity of popular item in each month
+def maxminavgineachmonth(monthsdata,maxqtysold):
+    qtyy_dict = {}
+    itemlisst = []
+    #loop the month data
+    for itemlist in jantotallist1:
+        #check if item exists
+        if itemlist[1] in qtyy_dict:
+        #search for max solded item 
+          if itemlist[1] == maxqtysold:
+            #append qty to list
+            itemlisst.append(int(itemlist[3]))
+            qtyy_dict[itemlist[1]] = itemlisst
+        else:
+            if itemlist[1] == maxqtysold:
+                itemlisst.append(int(itemlist[3]))
+                qtyy_dict[itemlist[1]] = itemlisst
+    #max  auantity sold in each month
+    maxqtysoldd = max(max(qtyy_dict.values())) 
+    #min  quantity sold in each month
+    minqtysoldd = min(min(qtyy_dict.values())) 
+    count = 0
+    popularitemtotal = 0
+    for k in qtyy_dict.keys():
+        for i in qtyy_dict[k]:
+            count+= 1
+            #sum of  quantity of the most solded item
+            popularitemtotal += i
+    #avg quantity sold in each month
+    avgnumberofpopularitemsold = popularitemtotal/count
+    return(maxqtysoldd,minqtysoldd,avgnumberofpopularitemsold)
+
 #datalist
 mylist1 = []
 #read data from file
@@ -49,195 +114,15 @@ for itemlist in  anothercopyoflist:
         marmonthsale = maramont +  marmonthsale
 #sum of january sales, febrauray sales and march sales
 totalamount = janmonthsale +  febmonthsale + marmonthsale
-jannqty_dict = {}
-febqty_dict = {}
-marqty_dict = {}
-janrevenue_dict = {}
-febrevenue_dict = {}
-marrevenue_dict = {}
-#add items from january data to dictionary
-for itemlist in jantotallist1:
-    keys = ''.join(itemlist[1])
-    key =  keys.strip('"')
-    #if key is same add it to the same key
-    if itemlist[1] in jannqty_dict:
-        jannqty_dict[itemlist[1]]+= int(itemlist[3])
-    
-    else:
-        #add it as new key
-        jannqty_dict[itemlist[1]] = int(itemlist[3])
-#the most popular item in january
-janmaxqtysold = max(jannqty_dict, key=jannqty_dict.get) 
-
-#add items from february data to dictionary
-
-for itemlist in febtotallist1:
-    keys = ''.join(itemlist[1])
-    key =  keys.strip('"')
-    #if key is same add it to the same key
-    if key in febqty_dict:
-        febqty_dict[key]+= int(itemlist[3])
-    
-    else:
-        #add it as new key
-        febqty_dict[itemlist[1]] = int(itemlist[3])
-#the most popular item in february
-
-febmaxqtysold = max(febqty_dict, key=febqty_dict.get) 
-
-#add items from march data to dictionary
-for itemlist in martotallist1:
-    keys = ''.join(itemlist[1])
-    key =  keys.strip('"')
-    #if key is same add it to the same key
-    if key in marqty_dict:
-        marqty_dict[key]+= int(itemlist[3])
-    
-    else:
-        #add it as new key
-        marqty_dict[itemlist[1]] = int(itemlist[3])
-#the most popular item in march
-marmaxqtysold = max(marqty_dict, key=marqty_dict.get) 
-
-#Item generating most revenue in january month.
-for itemlist in jantotallist1:
-    keys = ''.join(itemlist[1])
-    key =  keys.strip('"')
-    #if key is same add it to the same key
-    if itemlist[1] in janrevenue_dict:
-        janrevenue_dict[itemlist[1]]+= int(itemlist[4])
-    
-    else:
-        #add it as new key
-        janrevenue_dict[itemlist[1]] = int(itemlist[4])
-#most  revenu generated in january month
-janmaxrevenuesold = max(janrevenue_dict, key=janrevenue_dict.get) 
-
-#Item generating most revenue in febrauary month.
-for itemlist in febtotallist1:
-    keys = ''.join(itemlist[1])
-    key =  keys.strip('"')
-    #if key is same add it to the same key
-    if key in febrevenue_dict:
-        febrevenue_dict[key]+= int(itemlist[4])
-    else:
-        #add it as new key
-        febrevenue_dict[itemlist[1]] = int(itemlist[4])
-#most  revenu generated in febrauary month
-febmaxrevenuesold = max(febrevenue_dict, key=febrevenue_dict.get) 
-
-#Item generating most revenue in march month.
-for itemlist in martotallist1:
-    keys = ''.join(itemlist[1])
-    key =  keys.strip('"')
-    #if key is same add it to the same key
-    if key in marrevenue_dict:
-        marrevenue_dict[key]+= int(itemlist[4])
-    else:
-        #add it as new key
-        marrevenue_dict[itemlist[1]] = int(itemlist[4])
-#most  revenu generated in march month
-marmaxrevenuesold = max(marrevenue_dict, key=marrevenue_dict.get) 
-
-jannqtyy_dict = {}
-itemlisst = []
-#loop the january data
-for itemlist in jantotallist1:
-    keys = ''.join(itemlist[1])
-    key =  keys.strip('"')
-    #check if item exists
-    if itemlist[1] in jannqty_dict:
-        #search for max solded item 
-        if itemlist[1] == janmaxqtysold:
-            #append qty to list
-            itemlisst.append(int(itemlist[3]))
-            jannqtyy_dict[itemlist[1]] = itemlisst
-#max  auantity sold in january
-janmaxqtysoldd = max(max(jannqtyy_dict.values())) 
-#min  quantity sold in january
-janminqtysoldd = min(min(jannqtyy_dict.values())) 
-
-
-jancount = 0
-popularitemjantotal = 0
-for k in jannqtyy_dict.keys():
-    for i in jannqtyy_dict[k]:
-        jancount+= 1
-        #sum of  quantity of the most solded item
-        popularitemjantotal += i
-#avg quantity sold in january
-avgnumberofpopularitemsoldinjan = popularitemjantotal/jancount
-
-
-febnqtyy_dict = {}
-itemlisstinfeb = []
-#loop the febrauary data
-
-for itemlist in febtotallist1:
-    keys = ''.join(itemlist[1])
-    key =  keys.strip('"')
-    #check if item exists
-    if itemlist[1] in febnqtyy_dict:
-        #search for max solded item
-        
-        if itemlist[1] == febmaxqtysold:
-            #append qty to list
-            
-            itemlisstinfeb.append(int(itemlist[3]))
-            febnqtyy_dict[itemlist[1]] = itemlisstinfeb
-    else:
-            if itemlist[1] == febmaxqtysold:
-                itemlisstinfeb.append(int(itemlist[3]))
-                febnqtyy_dict[itemlist[1]] = itemlisstinfeb
-
-#maximum  quantity sold by popular item in febrauary
-febmaxqtysoldd = max(max(febnqtyy_dict.values())) 
-#minimum  quantity sold by popular item in febrauary
-febminqtysoldd = min(min(febnqtyy_dict.values())) 
-
-
-febcount = 0
-popularitemfebtotal = 0
-for k in febnqtyy_dict.keys():
-    for i in febnqtyy_dict[k]:
-        febcount+= 1
-        #sum of  quantity of the most solded item
-        popularitemfebtotal += i
-#average  quantity sold by popular item in febrauary  
-avgnumberofpopularitemsoldinfeb = popularitemfebtotal/febcount
-
-marnqtyy_dict = {}
-itemlisstinmar = []
-#loop the march data
-for itemlist in martotallist1:
-    keys = ''.join(itemlist[1])
-    key =  keys.strip('"')
-    #check if item exists
-    if itemlist[1] in marnqtyy_dict:
-        #search for max solded item
-        if itemlist[1] == marmaxqtysold:
-            #append qty to list
-            itemlisstinmar.append(int(itemlist[3]))
-            marnqtyy_dict[itemlist[1]] = itemlisst
-    else:
-        if itemlist[1] == marmaxqtysold:
-            itemlisstinmar.append(int(itemlist[3]))
-            marnqtyy_dict[itemlist[1]] = itemlisst
-#maximum  quantity sold by popular item in march
-marmaxqtysoldd = max(max(marnqtyy_dict.values()))
-#minimum  quantity sold by popular item in march 
-marminqtysoldd = min(min(marnqtyy_dict.values())) 
-
-marcount = 0
-popularitemmartotal = 0
-for k in marnqtyy_dict.keys():
-    for i in marnqtyy_dict[k]:
-        marcount+= 1
-        #sum of  quantity of the most solded item
-        popularitemmartotal += i
-#average  quantity sold by popular item in march  
-avgnumberofpopularitemsoldinmar = popularitemmartotal/marcount
-
+janmaxqtysold = mostpopularitem(jantotallist1)
+febmaxqtysold = mostpopularitem(febtotallist1) 
+marmaxqtysold = mostpopularitem(martotallist1) 
+janmaxrevenuesold = mostrevenuegenerated(jantotallist1)
+febmaxrevenuesold = mostrevenuegenerated(febtotallist1) 
+marmaxrevenuesold = mostrevenuegenerated(martotallist1) 
+janmaxqtysoldd, janminqtysoldd, avgnumberofpopularitemsoldinjan = maxminavgineachmonth(jantotallist1, janmaxqtysold) 
+febmaxqtysoldd, febminqtysoldd, avgnumberofpopularitemsoldinfeb = maxminavgineachmonth(febtotallist1, febmaxqtysold)
+marmaxqtysoldd, marminqtysoldd, avgnumberofpopularitemsoldinmar = maxminavgineachmonth(martotallist1, marmaxqtysold)
 
 print("total sales of january month of the store is Rs.{}".format(janmonthsale))
 print("total sales of febrauary month of the store is Rs.{}".format(febmonthsale))
@@ -246,19 +131,15 @@ print("total amount is Rs.{}".format(totalamount))
 print("Most popular item (most quantity sold)  in january is {} ".format(janmaxqtysold))
 print("Most popular item (most quantity sold)  in febrauary is {} ".format(febmaxqtysold))
 print("Most popular item (most quantity sold)  in march is {} ".format(marmaxqtysold))
-
 print("Items generating most revenue in january is {} ".format(janmaxrevenuesold))
 print("Items generating most revenue in   in febrauary is {} ".format(febmaxrevenuesold))
 print("Items generating most revenue in  in march is {} ".format(marmaxrevenuesold))
-
 print("Most popular item in january is {}  and max order is {}".format(janmaxqtysold,janmaxqtysoldd))
 print("Most popular item in january is {}  and min order is {}".format(janmaxqtysold,janminqtysoldd ))
 print("Most popular item in january is {}  and avg order is {}".format(janmaxqtysold,avgnumberofpopularitemsoldinjan ))
-
 print("Most popular item in febrauary is {}  and max order is {}".format(febmaxqtysold,febmaxqtysoldd))
 print("Most popular item in febrauary is {}  and min order is {}".format(febmaxqtysold,febminqtysoldd ))
 print("Most popular item in febrauary is {}  and avg order is {}".format(febmaxqtysold,avgnumberofpopularitemsoldinfeb ))
-
 print("Most popular item in march is {}  and max order is {}".format(marmaxqtysold,marmaxqtysoldd))
 print("Most popular item in march is {}  and min order is {}".format(marmaxqtysold,marminqtysoldd ))
 print("Most popular item in march is {}  and avg order is {}".format(marmaxqtysold,avgnumberofpopularitemsoldinmar ))
